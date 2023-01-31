@@ -1,14 +1,13 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { Device, DeviceType } from "@/types";
 import { Apple, Linux, Windows } from "@/assets";
-import { useCallback } from "react";
+import { useMemo } from "react";
+import { capitalize } from "@/utils";
 
-type Props = Pick<Device, 'type' | 'system_name' | 'hdd_capacity'>
-
-const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1).toLowerCase();
+type Props = Pick<Device, 'type' | 'system_name' | 'hdd_capacity'>;
 
 const DeviceItem = ({ type, system_name, hdd_capacity }: Props) => {
-  const renderIcon = useCallback(() => {
+  const renderIcon = useMemo(() => {
     switch (type) {
       case DeviceType.LINUX:
         return <Linux />;
@@ -24,7 +23,7 @@ const DeviceItem = ({ type, system_name, hdd_capacity }: Props) => {
     <Flex borderBottom="1px solid #CBCFD3" py={2}>
       <Flex ml={3} flexDirection="column">
         <Flex alignItems="center" ml={3}>
-          {renderIcon()}
+          {renderIcon}
           <Text ml={2}>
             {system_name}
           </Text>
