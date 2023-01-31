@@ -1,0 +1,10 @@
+export { ReactComponent as Add } from './add.svg';
+export { ReactComponent as Apple } from './apple.svg';
+export { ReactComponent as Close } from './close.svg';
+export { ReactComponent as CollapseArrow } from './collapse-arrow.svg';
+export { ReactComponent as Linux } from './linux.svg';
+export { ReactComponent as Logo } from './logo.svg';
+export { ReactComponent as Options } from './options.svg';
+export { ReactComponent as Refresh } from './refresh.svg';
+export { ReactComponent as Search } from './search.svg';
+export { ReactComponent as Windows } from './windows.svg';
