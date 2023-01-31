@@ -5,5 +5,5 @@ import { addDevice } from "@/service";
 const useAddDeviceMutation = (data: Device) => useMutation(() => addDevice(data));
 
 export {
-    useAddDeviceMutation,
+  useAddDeviceMutation,
 }

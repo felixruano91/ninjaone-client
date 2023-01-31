@@ -5,5 +5,5 @@ import { Device } from "@/types";
 const useDevicesQuery = () => useQuery<Device[]>('devices', getDevices);
 
 export {
-    useDevicesQuery,
+  useDevicesQuery,
 }
