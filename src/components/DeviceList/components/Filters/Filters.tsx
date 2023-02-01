@@ -1,6 +1,13 @@
-import { Button, Flex, Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  Select,
+} from "@chakra-ui/react";
 import { Refresh, Search } from "@/assets";
-import { Select } from '@/components';
+import { DeviceTypeMenu } from './components';
 
 type Props = {
   isLoading: boolean;
@@ -24,10 +31,17 @@ const Filters = ({ isLoading, onClick }: Props) => (
         />
         <Input placeholder="Search" />
       </InputGroup>
+      <DeviceTypeMenu />
       <Select
-        placeholder="Device Type: All"
-      />
-      <Select
+        width="auto"
+        ml={{
+          sm: 0,
+          md: 2,
+        }}
+        mt={{
+          sm: 2,
+          md: 0
+        }}
         placeholder="Sort by: HDD Capacity (Descending)"
       />
     </Flex>

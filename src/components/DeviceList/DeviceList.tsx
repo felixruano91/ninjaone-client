@@ -1,5 +1,5 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react";
-import { DeviceItem, Filters } from "@/components";
+import { DeviceItem, Filters } from "./components";
 import { useDevicesQuery } from "@/hooks";
 
 type Props = {
@@ -33,7 +33,12 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
           maxH={heightBreakpoints}
         >
           {data?.map(({ id, ...device }) => (
-            <DeviceItem key={id} {...device} onEdit={onEdit} onDelete={onDelete} />
+            <DeviceItem
+              key={id}
+              {...device}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
           ))}
         </Box>
       )}

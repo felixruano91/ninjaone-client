@@ -12,7 +12,7 @@ import { useRef } from "react";
 function App() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { isOpen: isOpenDialog, onClose: onCloseDialog, onOpen: onOpenDialog } = useDisclosure();
-  const cancelRef = useRef(null)
+  const cancelRef = useRef(null);
   return (
     <>
       <Flex backgroundColor="ninja.primary" py={3} px={6}>
