@@ -10,15 +10,15 @@ import { RefObject } from "react";
 
 type Props = {
   isOpen: boolean;
-  ref: RefObject<any>
+  leastDestructiveRef: RefObject<any>
   onClose: VoidFunction;
 }
 
-const DeleteDeviceDialog = ({ isOpen, ref, onClose }: Props) => {
+const DeleteDeviceDialog = ({ isOpen, leastDestructiveRef, onClose }: Props) => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      leastDestructiveRef={ref}
+      leastDestructiveRef={leastDestructiveRef}
       onClose={onClose}
       isCentered
     >
@@ -34,7 +34,7 @@ const DeleteDeviceDialog = ({ isOpen, ref, onClose }: Props) => {
 
           <AlertDialogFooter>
             <Button
-              ref={ref}
+              ref={leastDestructiveRef}
               onClick={onClose}
               variant="outline"
             >

@@ -35,6 +35,7 @@ const Filters = ({ isLoading, onClick }: Props) => (
       isLoading={isLoading}
       variant="ghost"
       onClick={onClick}
+      aria-label="refresh"
     >
       <Refresh />
     </Button>

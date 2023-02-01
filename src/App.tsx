@@ -47,7 +47,7 @@ function App() {
         />
         <DeleteDeviceDialog
           isOpen={isOpenDialog}
-          ref={cancelRef}
+          leastDestructiveRef={cancelRef}
           onClose={onCloseDialog}
         />
       </Box>

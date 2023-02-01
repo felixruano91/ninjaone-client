@@ -38,7 +38,7 @@ const DeviceItem = ({ type, system_name, hdd_capacity, onEdit, onDelete }: Props
         </Flex>
       </Flex>
       <Menu>
-        <MenuButton variant="ghost" as={Button} mr={3}>
+        <MenuButton aria-label="options" variant="ghost" as={Button} mr={3}>
           <Options />
         </MenuButton>
         <MenuList>
