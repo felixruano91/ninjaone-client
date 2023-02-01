@@ -3,10 +3,11 @@ import { Refresh, Search } from "@/assets";
 import { Select } from '@/components';
 
 type Props = {
+  isLoading: boolean;
   onClick: VoidFunction;
 }
 
-const Filters = ({ onClick }: Props) => (
+const Filters = ({ isLoading, onClick }: Props) => (
   <Flex my={6} justifyContent="space-between">
     <Flex
       flexDirection={{
@@ -24,13 +25,17 @@ const Filters = ({ onClick }: Props) => (
         <Input placeholder="Search" />
       </InputGroup>
       <Select
-        placeholder="DeviceItem Type: All"
+        placeholder="Device Type: All"
       />
       <Select
         placeholder="Sort by: HDD Capacity (Descending)"
       />
     </Flex>
-    <Button variant="ghost" onClick={onClick}>
+    <Button
+      isLoading={isLoading}
+      variant="ghost"
+      onClick={onClick}
+    >
       <Refresh />
     </Button>
   </Flex>

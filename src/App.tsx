@@ -1,8 +1,18 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { Logo, Add } from '@/assets';
-import { DeviceList } from "@/components";
+import { DeleteDeviceDialog, DeviceList, DeviceModal } from "@/components";
+import { useRef } from "react";
 
 function App() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isOpen: isOpenDialog, onClose: onCloseDialog, onOpen: onOpenDialog } = useDisclosure();
+  const cancelRef = useRef(null)
   return (
     <>
       <Flex backgroundColor="ninja.primary" py={3} px={6}>
@@ -19,6 +29,7 @@ function App() {
             fill="white"
             variant="solid"
             size="sm"
+            onClick={onOpen}
           >
             <Add />
             <Text ml={2}>
@@ -26,7 +37,19 @@ function App() {
             </Text>
           </Button>
         </Flex>
-        <DeviceList />
+        <DeviceList
+          onEdit={onOpen}
+          onDelete={onOpenDialog}
+        />
+        <DeviceModal
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+        <DeleteDeviceDialog
+          isOpen={isOpenDialog}
+          ref={cancelRef}
+          onClose={onCloseDialog}
+        />
       </Box>
     </>
   )

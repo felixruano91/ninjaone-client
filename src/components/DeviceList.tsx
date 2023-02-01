@@ -2,35 +2,38 @@ import { Box, Center, Spinner, Text } from "@chakra-ui/react";
 import { DeviceItem, Filters } from "@/components";
 import { useDevicesQuery } from "@/hooks";
 
-const DeviceList = () => {
-  const { data, isLoading, refetch } = useDevicesQuery();
+type Props = {
+  onEdit: VoidFunction;
+  onDelete: VoidFunction;
+}
+const DeviceList = ({ onEdit, onDelete }: Props) => {
+  const { data, isLoading, isFetching, refetch } = useDevicesQuery();
+  const heightBreakpoints = {
+    sm: '60vh',
+    md: '70vh',
+  }
   return (
     <>
-      <Filters onClick={refetch} />
+      <Filters
+        isLoading={isLoading || isFetching}
+        onClick={refetch}
+      />
       <Box borderBottom="1px solid #CBCFD3">
         <Text ml={3}>
           Device
         </Text>
       </Box>
-      {isLoading ? (
-        <Center
-          height={{
-            sm: '60vh',
-            md: '70vh',
-          }}
-        >
+      {isLoading || isFetching ? (
+        <Center height={heightBreakpoints}>
           <Spinner />
         </Center>
       ) : (
         <Box
           overflow="scroll"
-          maxH={{
-            sm: '60vh',
-            md: '70vh',
-          }}
+          maxH={heightBreakpoints}
         >
           {data?.map(({ id, ...device }) => (
-            <DeviceItem key={id} {...device} />
+            <DeviceItem key={id} {...device} onEdit={onEdit} onDelete={onDelete} />
           ))}
         </Box>
       )}
