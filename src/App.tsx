@@ -7,12 +7,24 @@ import {
 } from "@chakra-ui/react";
 import { Logo, Add } from '@/assets';
 import { DeleteDeviceDialog, DeviceList, DeviceModal } from "@/components";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Device } from "@/types";
 
 function App() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { isOpen: isOpenDialog, onClose: onCloseDialog, onOpen: onOpenDialog } = useDisclosure();
+  const [device, setDevice] = useState<Device>();
   const cancelRef = useRef(null);
+
+  const handleOnClose = (handleClose: VoidFunction) => () => {
+    setDevice(undefined);
+    handleClose();
+  }
+
+  const handleOptionsClick = (handleOpen: VoidFunction) => (device: Device) => () => {
+    setDevice(device);
+    handleOpen();
+  }
   return (
     <>
       <Flex backgroundColor="ninja.primary" py={3} px={6}>
@@ -42,17 +54,19 @@ function App() {
           </Button>
         </Flex>
         <DeviceList
-          onEdit={onOpen}
-          onDelete={onOpenDialog}
+          onEdit={handleOptionsClick(onOpen)}
+          onDelete={handleOptionsClick(onOpenDialog)}
         />
         <DeviceModal
           isOpen={isOpen}
-          onClose={onClose}
+          device={device}
+          onClose={handleOnClose(onClose)}
         />
         <DeleteDeviceDialog
+          device={device}
           isOpen={isOpenDialog}
           leastDestructiveRef={cancelRef}
-          onClose={onCloseDialog}
+          onClose={handleOnClose(onCloseDialog)}
         />
       </Box>
     </>

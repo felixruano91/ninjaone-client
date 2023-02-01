@@ -31,6 +31,10 @@ const DeviceTypeMenu = ({ types, onChange }: Props) => {
           sm: 0,
           md: 2,
         }}
+        mt={{
+          sm: 2,
+          md: 0,
+        }}
       >
         {label}
       </MenuButton>

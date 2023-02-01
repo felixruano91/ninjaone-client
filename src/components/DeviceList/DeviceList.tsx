@@ -2,10 +2,11 @@ import { Box, Center, Spinner, Text } from "@chakra-ui/react";
 import { DeviceItem, Filters } from "./components";
 import { useDevicesQuery } from "@/hooks";
 import { useState } from "react";
+import { Device } from "@/types";
 
 type Props = {
-  onEdit: VoidFunction;
-  onDelete: VoidFunction;
+  onEdit: (device: Device) => () => void;
+  onDelete: (device: Device) => () => void;
 }
 const DeviceList = ({ onEdit, onDelete }: Props) => {
   const [search, setSearch] = useState('');
@@ -49,8 +50,8 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
             <DeviceItem
               key={id}
               {...device}
-              onEdit={onEdit}
-              onDelete={onDelete}
+              onEdit={onEdit({ id, ...device })}
+              onDelete={onDelete({ id, ...device })}
             />
           ))}
         </Box>

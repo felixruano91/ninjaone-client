@@ -7,15 +7,28 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
-import { RefObject } from "react";
+import { RefObject, useCallback } from "react";
+import { Device } from "@/types";
+import { useDeleteDeviceMutation } from "@/hooks";
 
 type Props = {
+  device?: Device;
   isOpen: boolean;
   leastDestructiveRef: RefObject<any>
   onClose: VoidFunction;
 }
 
-const DeleteDeviceDialog = ({ isOpen, leastDestructiveRef, onClose }: Props) => {
+const DeleteDeviceDialog = ({ device, isOpen, leastDestructiveRef, onClose }: Props) => {
+  const { mutate: deleteDevice } = useDeleteDeviceMutation();
+
+  const handleDelete = useCallback(async () => {
+    try {
+      await deleteDevice(device?.id as string);
+      onClose();
+    } catch (e) {
+      console.error(e);
+    }
+  }, [deleteDevice, onClose, device]);
   return (
     <AlertDialog
       isOpen={isOpen}
@@ -30,7 +43,7 @@ const DeleteDeviceDialog = ({ isOpen, leastDestructiveRef, onClose }: Props) => 
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            You are about to delete the device DESKTOP-0VCBIFF. This action cannot be undone.
+            You are about to delete the device {device?.system_name}. This action cannot be undone.
           </AlertDialogBody>
 
           <AlertDialogFooter>
@@ -43,7 +56,7 @@ const DeleteDeviceDialog = ({ isOpen, leastDestructiveRef, onClose }: Props) => 
             </Button>
             <Button
               colorScheme='red'
-              onClick={onClose}
+              onClick={handleDelete}
               ml={3}
             >
               Delete

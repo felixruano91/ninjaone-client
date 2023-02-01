@@ -11,10 +11,13 @@ type Device = {
   hdd_capacity: string;
 }
 
+type DevicePayload = Pick<Device, 'system_name' | 'type' | 'hdd_capacity'>;
+
 export {
   DeviceType,
 }
 
 export type {
   Device,
+  DevicePayload,
 }
