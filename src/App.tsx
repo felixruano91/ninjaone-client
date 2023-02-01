@@ -30,6 +30,10 @@ function App() {
             variant="solid"
             size="sm"
             onClick={onOpen}
+            _hover={{
+              backgroundColor: 'ninja.button.primary',
+              opacity: .8
+            }}
           >
             <Add />
             <Text ml={2}>

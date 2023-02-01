@@ -8,13 +8,18 @@ import {
 } from "@chakra-ui/react";
 import { Refresh, Search } from "@/assets";
 import { DeviceTypeMenu } from './components';
+import { ChangeEventHandler } from "react";
 
 type Props = {
   isLoading: boolean;
+  types: string[];
+  onSearchChange: ChangeEventHandler<HTMLInputElement>;
+  onSortChange: ChangeEventHandler<HTMLSelectElement>;
+  onMenuChange: (value: string | string[]) => void;
   onClick: VoidFunction;
 }
 
-const Filters = ({ isLoading, onClick }: Props) => (
+const Filters = ({ isLoading, types, onSearchChange, onSortChange, onMenuChange, onClick }: Props) => (
   <Flex my={6} justifyContent="space-between">
     <Flex
       flexDirection={{
@@ -29,9 +34,9 @@ const Filters = ({ isLoading, onClick }: Props) => (
         <InputLeftAddon
           children={<Search />}
         />
-        <Input placeholder="Search" />
+        <Input placeholder="Search" onChange={onSearchChange} />
       </InputGroup>
-      <DeviceTypeMenu />
+      <DeviceTypeMenu types={types} onChange={onMenuChange} />
       <Select
         width="auto"
         ml={{
@@ -42,8 +47,12 @@ const Filters = ({ isLoading, onClick }: Props) => (
           sm: 2,
           md: 0
         }}
-        placeholder="Sort by: HDD Capacity (Descending)"
-      />
+        placeholder="Sort by"
+        onChange={onSortChange}
+      >
+        <option value='hdd_capacity'>Sort by: HDD Capacity (Descending)</option>
+        <option value='system_name'>Sort by: Device Name (Ascending)</option>
+      </Select>
     </Flex>
     <Button
       isLoading={isLoading}
