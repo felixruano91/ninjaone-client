@@ -4,7 +4,7 @@ import { AppProvider } from "@/providers";
 import { expect } from "vitest";
 
 describe('App', () => {
-  it('should render application', () => {
+  it('should render', () => {
     const component = render(
       <AppProvider>
         <App />

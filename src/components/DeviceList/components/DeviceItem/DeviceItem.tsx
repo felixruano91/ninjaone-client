@@ -15,17 +15,18 @@ const DeviceItem = ({ type, system_name, hdd_capacity, onEdit, onDelete }: Props
   const renderIcon = useMemo(() => {
     switch (type) {
       case DeviceType.LINUX:
-        return <Linux />;
+        return <Linux data-testid="type-linux" />;
       case DeviceType.MAC:
-        return <Apple />;
+        return <Apple data-testid="type-mac" />;
       case DeviceType.WINDOWS:
-        return <Windows />;
+        return <Windows data-testid="type-windows" />;
       default:
         return null;
     }
   }, [type])
   return (
     <Flex
+      data-testid="device-item"
       borderBottom="1px solid #CBCFD3"
       py={2}
       justifyContent="space-between"
@@ -38,7 +39,7 @@ const DeviceItem = ({ type, system_name, hdd_capacity, onEdit, onDelete }: Props
       <Flex ml={3} flexDirection="column">
         <Flex alignItems="center" ml={3}>
           {renderIcon}
-          <Text ml={2}>
+          <Text data-testid="system_name" ml={2}>
             {system_name}
           </Text>
         </Flex>
@@ -49,7 +50,7 @@ const DeviceItem = ({ type, system_name, hdd_capacity, onEdit, onDelete }: Props
         </Flex>
       </Flex>
       {isHovered && (
-        <OptionsMenu onEdit={onEdit} onDelete={onDelete} />
+        <OptionsMenu data-testid="options-menu" onEdit={onEdit} onDelete={onDelete} />
       )}
     </Flex>
   )

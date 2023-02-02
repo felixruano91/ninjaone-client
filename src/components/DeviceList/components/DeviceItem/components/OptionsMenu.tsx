@@ -20,9 +20,7 @@ const OptionsMenu = ({ onEdit, onDelete }: Props) => (
       <Options />
     </MenuButton>
     <MenuList>
-      <MenuItem
-        onClick={onEdit}
-      >
+      <MenuItem onClick={onEdit}>
         Edit
       </MenuItem>
       <MenuItem
