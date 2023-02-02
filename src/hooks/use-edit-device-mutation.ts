@@ -1,11 +1,16 @@
 import { useMutation } from "react-query";
-import { Device } from "@/types";
+import { Device, MutationParams } from "@/types";
 import { editDevice } from "@/service";
 import { queryClient } from "@/lib/react-query";
 
-const useEditDeviceMutation = () => useMutation((device: Device) => editDevice(device), {
-  onSuccess: () => queryClient.invalidateQueries(['devices'])
-});
+const useEditDeviceMutation = ({ onSuccess, onError }: MutationParams) =>
+  useMutation((device: Device) => editDevice(device), {
+    onSuccess: () => {
+      onSuccess();
+      return queryClient.invalidateQueries(['devices'])
+    },
+    onError,
+  });
 
 export {
   useEditDeviceMutation,

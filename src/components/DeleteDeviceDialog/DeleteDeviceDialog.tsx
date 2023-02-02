@@ -1,6 +1,6 @@
 import {
   AlertDialog,
-  AlertDialogBody,
+  AlertDialogBody, AlertDialogCloseButton,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
@@ -10,6 +10,7 @@ import {
 import { RefObject, useCallback } from "react";
 import { Device } from "@/types";
 import { useDeleteDeviceMutation } from "@/hooks";
+import { onError } from "@/utils";
 
 type Props = {
   device?: Device;
@@ -19,12 +20,14 @@ type Props = {
 }
 
 const DeleteDeviceDialog = ({ device, isOpen, leastDestructiveRef, onClose }: Props) => {
-  const { mutate: deleteDevice } = useDeleteDeviceMutation();
+  const { mutate: deleteDevice } = useDeleteDeviceMutation({
+    onSuccess: onClose,
+    onError,
+  });
 
   const handleDelete = useCallback(async () => {
     try {
       await deleteDevice(device?.id as string);
-      onClose();
     } catch (e) {
       console.error(e);
     }
@@ -38,16 +41,18 @@ const DeleteDeviceDialog = ({ device, isOpen, leastDestructiveRef, onClose }: Pr
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+          <AlertDialogHeader fontSize={24} fontWeight={500}>
             Delete Device?
           </AlertDialogHeader>
+          <AlertDialogCloseButton />
 
-          <AlertDialogBody>
-            You are about to delete the device {device?.system_name}. This action cannot be undone.
+          <AlertDialogBody fontSize={14} fontWeight={500}>
+            You are about to delete the device <b>{device?.system_name}</b>. This action cannot be undone.
           </AlertDialogBody>
 
           <AlertDialogFooter>
             <Button
+              height={38}
               ref={leastDestructiveRef}
               onClick={onClose}
               variant="outline"
@@ -55,6 +60,7 @@ const DeleteDeviceDialog = ({ device, isOpen, leastDestructiveRef, onClose }: Pr
               Cancel
             </Button>
             <Button
+              height={38}
               colorScheme='red'
               onClick={handleDelete}
               ml={3}

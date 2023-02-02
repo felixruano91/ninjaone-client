@@ -12,7 +12,7 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('');
   const [types, setTypes] = useState<string[]>([]);
-  const { data, isLoading, isFetching, refetch } = useDevicesQuery({
+  const { data, isLoading, isFetching, refetch, isError } = useDevicesQuery({
     search,
     sort,
     types,
@@ -37,6 +37,11 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
           Device
         </Text>
       </Box>
+      {isError && (
+        <Center height={heightBreakpoints}>
+          Something went wrong, please try again.
+        </Center>
+      )}
       {isLoading || isFetching ? (
         <Center height={heightBreakpoints}>
           <Spinner />

@@ -13,6 +13,11 @@ type Device = {
 
 type DevicePayload = Pick<Device, 'system_name' | 'type' | 'hdd_capacity'>;
 
+type MutationParams = {
+  onSuccess: VoidFunction;
+  onError: VoidFunction;
+}
+
 export {
   DeviceType,
 }
@@ -20,4 +25,5 @@ export {
 export type {
   Device,
   DevicePayload,
+  MutationParams,
 }

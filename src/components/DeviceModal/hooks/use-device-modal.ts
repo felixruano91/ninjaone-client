@@ -2,6 +2,7 @@ import { useAddDeviceMutation, useEditDeviceMutation } from "@/hooks";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
 import { Device, DevicePayload, DeviceType } from "@/types";
 import { useCallback, useEffect } from "react";
+import { onError } from "@/utils";
 
 type Params = {
   device?: Device;
@@ -9,14 +10,13 @@ type Params = {
 }
 
 const useDeviceModal = ({ device, onClose }: Params) => {
-  const { mutate: addDevice } = useAddDeviceMutation();
-  const { mutate: editDevice } = useEditDeviceMutation();
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<DevicePayload>();
+
   const registerRequiredField = useCallback(
     (name: keyof DevicePayload, options?: RegisterOptions) => register(name, {
       required: 'This is required',
@@ -33,6 +33,15 @@ const useDeviceModal = ({ device, onClose }: Params) => {
     [reset, onClose]
   );
 
+  const { mutate: addDevice } = useAddDeviceMutation({
+    onSuccess: handleOnClose,
+    onError,
+  });
+  const { mutate: editDevice } = useEditDeviceMutation({
+    onSuccess: handleOnClose,
+    onError,
+  });
+
   const onSubmit: SubmitHandler<DevicePayload> = useCallback(async (values, event) => {
     try {
       event?.preventDefault();
@@ -41,7 +50,6 @@ const useDeviceModal = ({ device, onClose }: Params) => {
       } else {
         await addDevice(values);
       }
-      handleOnClose();
     } catch (e) {
       console.error(e);
     }
