@@ -41,7 +41,9 @@ const DeviceModal = ({ isOpen, device, onClose }: Props) => {
     <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
       <ModalOverlay/>
       <ModalContent>
-        <ModalHeader>{device ? 'Edit' : 'Add'} Device</ModalHeader>
+        <ModalHeader fontSize={24} fontWeight={500}>
+          {device ? 'Edit' : 'Add'} Device
+        </ModalHeader>
         <ModalCloseButton/>
 
         <form onSubmit={handleSubmit}>
@@ -88,21 +90,26 @@ const DeviceModal = ({ isOpen, device, onClose }: Props) => {
 
           <ModalFooter>
             <Button
+              height={38}
+              color="ninja.button.primary"
               variant="outline"
               mr={3}
               onClick={handleOnClose}
-              size="sm"
             >
               Cancel
             </Button>
             <Button
+              height={38}
               backgroundColor="ninja.button.primary"
               color="white"
               fill="white"
               variant="solid"
-              size="sm"
               isLoading={isSubmitting}
               type='submit'
+              _hover={{
+                backgroundColor: 'ninja.button.primary',
+                opacity: .8
+              }}
             >
               Submit
             </Button>

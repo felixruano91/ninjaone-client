@@ -1,6 +1,16 @@
-import { Button, Flex, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItemOption,
+  MenuList,
+  MenuOptionGroup,
+  Text
+} from "@chakra-ui/react";
 import { DeviceType } from "@/types";
-import { Apple, Linux, Windows } from "@/assets";
+import { Apple, CollapseArrow, Linux, Windows } from "@/assets";
 import { useMemo } from "react";
 import { capitalize } from "@/utils";
 
@@ -35,6 +45,14 @@ const DeviceTypeMenu = ({ types, onChange }: Props) => {
           sm: 2,
           md: 0,
         }}
+        pr={{
+          sm: 3.5,
+        }}
+        rightIcon={(
+          <Center height={14} ml={3}>
+            <CollapseArrow />
+          </Center>
+        )}
       >
         {label}
       </MenuButton>

@@ -32,7 +32,7 @@ function App() {
       </Flex>
       <Box my={8} mx={6}>
         <Flex justifyContent="space-between" alignItems="center">
-          <Text fontSize="xl">
+          <Text fontSize="xl" fontWeight={500}>
             Devices
           </Text>
           <Button

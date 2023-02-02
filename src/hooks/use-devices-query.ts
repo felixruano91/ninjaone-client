@@ -41,6 +41,7 @@ const useDevicesQuery = ({ search = '', sort = '', types = [] }: Params) => {
     getDevices,
     {
       select,
+      refetchOnWindowFocus: false,
     }
   )
 };

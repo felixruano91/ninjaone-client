@@ -33,7 +33,7 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
         onMenuChange={value => setTypes(value as string[])}
       />
       <Box borderBottom="1px solid #CBCFD3">
-        <Text ml={3}>
+        <Text ml={3} mb={2}>
           Device
         </Text>
       </Box>

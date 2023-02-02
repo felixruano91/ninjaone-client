@@ -1,12 +1,12 @@
 import {
-  Button,
+  Button, Center,
   Flex,
   Input,
   InputGroup,
   InputLeftAddon,
   Select,
 } from "@chakra-ui/react";
-import { Refresh, Search } from "@/assets";
+import { CollapseArrow, Refresh, Search } from "@/assets";
 import { DeviceTypeMenu } from './components';
 import { ChangeEventHandler } from "react";
 
@@ -38,6 +38,7 @@ const Filters = ({ isLoading, types, onSearchChange, onSortChange, onMenuChange,
       </InputGroup>
       <DeviceTypeMenu types={types} onChange={onMenuChange} />
       <Select
+        cursor="pointer"
         width="auto"
         ml={{
           sm: 0,
@@ -48,6 +49,11 @@ const Filters = ({ isLoading, types, onSearchChange, onSortChange, onMenuChange,
           md: 0
         }}
         placeholder="Sort by"
+        icon={(
+          <Center height={14}>
+            <CollapseArrow />
+          </Center>
+        )}
         onChange={onSortChange}
       >
         <option value='hdd_capacity'>Sort by: HDD Capacity (Descending)</option>
