@@ -16,6 +16,7 @@ const OptionsMenu = ({ onEdit, onDelete }: Props) => (
       _hover={{
         backgroundColor: '#E8E8EA',
       }}
+      height="auto"
     >
       <Options />
     </MenuButton>

@@ -50,7 +50,11 @@ const DeviceItem = ({ type, system_name, hdd_capacity, onEdit, onDelete }: Props
         </Flex>
       </Flex>
       {isHovered && (
-        <OptionsMenu data-testid="options-menu" onEdit={onEdit} onDelete={onDelete} />
+        <OptionsMenu
+          data-testid="options-menu"
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
       )}
     </Flex>
   )
