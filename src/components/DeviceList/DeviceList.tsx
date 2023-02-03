@@ -1,31 +1,34 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react";
-import { DeviceItem, Filters } from "./components";
-import { useDevicesQuery } from "@/hooks";
-import { useState } from "react";
-import { Device } from "@/types";
+import { DeleteDeviceDialog, DeviceItem, DeviceModal, Filters, Header } from "./components";
+import { useDeviceList } from "./hooks";
 
-type Props = {
-  onEdit: (device: Device) => () => void;
-  onDelete: (device: Device) => () => void;
-}
-const DeviceList = ({ onEdit, onDelete }: Props) => {
-  const [search, setSearch] = useState('');
-  const [sort, setSort] = useState('');
-  const [types, setTypes] = useState<string[]>([]);
-  const { data, isLoading, isFetching, refetch, isError } = useDevicesQuery({
-    search,
-    sort,
+const DeviceList = () => {
+  const {
+    cancelRef,
+    data,
+    device,
+    heightBreakpoints,
+    isError,
+    isLoading,
+    isOpen,
+    isOpenDelete,
+    onClose,
+    onCloseDelete,
+    onDelete,
+    onEdit,
+    onOpen,
+    refetch,
+    setSearch,
+    setSort,
+    setTypes,
     types,
-  });
-  const heightBreakpoints = {
-    sm: '60vh',
-    md: '70vh',
-  }
+  } = useDeviceList();
 
   return (
-    <>
+    <Box my={8} mx={6}>
+      <Header onClick={onOpen} />
       <Filters
-        isLoading={isLoading || isFetching}
+        isLoading={isLoading}
         types={types}
         onClick={refetch}
         onSearchChange={e => setSearch(e.target.value)}
@@ -42,7 +45,7 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
           Something went wrong, please try again.
         </Center>
       )}
-      {isLoading || isFetching && (
+      {isLoading && (
         <Center height={heightBreakpoints}>
           <Spinner />
         </Center>
@@ -66,7 +69,18 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
           No data to display.
         </Center>
       )}
-    </>
+      <DeviceModal
+        isOpen={isOpen}
+        device={device}
+        onClose={onClose}
+      />
+      <DeleteDeviceDialog
+        device={device}
+        isOpen={isOpenDelete}
+        leastDestructiveRef={cancelRef}
+        onClose={onCloseDelete}
+      />
+    </Box>
   )
 }
 
