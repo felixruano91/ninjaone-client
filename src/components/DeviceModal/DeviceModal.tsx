@@ -31,7 +31,7 @@ const DeviceModal = ({ isOpen, device, onClose }: Props) => {
     handleOnClose,
     errors,
     registerRequiredField,
-    isSubmitting,
+    isLoading,
   } = useDeviceModal({
     device,
     onClose,
@@ -104,7 +104,7 @@ const DeviceModal = ({ isOpen, device, onClose }: Props) => {
               color="white"
               fill="white"
               variant="solid"
-              isLoading={isSubmitting}
+              isLoading={isLoading}
               type='submit'
               _hover={{
                 backgroundColor: 'ninja.button.primary',

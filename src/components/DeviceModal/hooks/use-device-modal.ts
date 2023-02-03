@@ -1,7 +1,7 @@
 import { useAddDeviceMutation, useEditDeviceMutation } from "@/hooks";
 import { RegisterOptions, SubmitHandler, useForm } from "react-hook-form";
 import { Device, DevicePayload, DeviceType } from "@/types";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { onError } from "@/utils";
 
 type Params = {
@@ -13,7 +13,7 @@ const useDeviceModal = ({ device, onClose }: Params) => {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<DevicePayload>();
 
@@ -33,14 +33,15 @@ const useDeviceModal = ({ device, onClose }: Params) => {
     [reset, onClose]
   );
 
-  const { mutate: addDevice } = useAddDeviceMutation({
+  const { mutate: addDevice, isLoading: isLoadingAdd } = useAddDeviceMutation({
     onSuccess: handleOnClose,
     onError,
   });
-  const { mutate: editDevice } = useEditDeviceMutation({
+  const { mutate: editDevice, isLoading: isLoadingEdit } = useEditDeviceMutation({
     onSuccess: handleOnClose,
     onError,
   });
+  const isLoading = useMemo(() => isLoadingAdd || isLoadingEdit, [isLoadingAdd, isLoadingEdit]);
 
   const onSubmit: SubmitHandler<DevicePayload> = useCallback(async (values, event) => {
     try {
@@ -67,7 +68,7 @@ const useDeviceModal = ({ device, onClose }: Params) => {
     handleSubmit: handleSubmit(onSubmit),
     handleOnClose,
     errors,
-    isSubmitting,
+    isLoading,
     registerRequiredField,
   }
 }

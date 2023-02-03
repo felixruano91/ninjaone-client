@@ -21,7 +21,7 @@ type Props = {
 }
 
 const DeleteDeviceDialog = ({ device, isOpen, leastDestructiveRef, onClose }: Props) => {
-  const { mutate: deleteDevice } = useDeleteDeviceMutation({
+  const { mutate: deleteDevice, isLoading } = useDeleteDeviceMutation({
     onSuccess: onClose,
     onError,
   });
@@ -65,6 +65,7 @@ const DeleteDeviceDialog = ({ device, isOpen, leastDestructiveRef, onClose }: Pr
               colorScheme='red'
               onClick={handleDelete}
               ml={3}
+              isLoading={isLoading}
             >
               Delete
             </Button>
