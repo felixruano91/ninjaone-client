@@ -42,16 +42,17 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
           Something went wrong, please try again.
         </Center>
       )}
-      {isLoading || isFetching ? (
+      {isLoading || isFetching && (
         <Center height={heightBreakpoints}>
           <Spinner />
         </Center>
-      ) : (
+      )}
+      {data && data.length > 0 ? (
         <Box
           overflow="scroll"
           maxH={heightBreakpoints}
         >
-          {data?.map(({ id, ...device }) => (
+          {data.map(({ id, ...device }) => (
             <DeviceItem
               key={id}
               {...device}
@@ -60,6 +61,10 @@ const DeviceList = ({ onEdit, onDelete }: Props) => {
             />
           ))}
         </Box>
+      ) : (
+        <Center height={heightBreakpoints}>
+          No data to display.
+        </Center>
       )}
     </>
   )
