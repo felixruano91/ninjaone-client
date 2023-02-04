@@ -1,11 +1,11 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { Device, DeviceType } from "@/types";
+import { DevicePayload, DeviceType } from "@/types";
 import { Apple, Linux, Windows } from "@/assets";
 import { useMemo, useState } from "react";
 import { capitalize } from "@/utils";
 import { OptionsMenu } from "./components";
 
-type Props = Pick<Device, 'type' | 'system_name' | 'hdd_capacity'> & {
+type Props = DevicePayload & {
   onEdit: VoidFunction;
   onDelete: VoidFunction;
 };
