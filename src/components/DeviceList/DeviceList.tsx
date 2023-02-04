@@ -50,24 +50,26 @@ const DeviceList = () => {
           <Spinner />
         </Center>
       )}
-      {data && data.length > 0 ? (
-        <Box
-          overflow="scroll"
-          maxH={heightBreakpoints}
-        >
-          {data.map(({ id, ...device }) => (
-            <DeviceItem
-              key={id}
-              {...device}
-              onEdit={onEdit({ id, ...device })}
-              onDelete={onDelete({ id, ...device })}
-            />
-          ))}
-        </Box>
-      ) : (
-        <Center height={heightBreakpoints}>
-          No data to display.
-        </Center>
+      {!isError && !isLoading && (
+        data && data.length > 0 ? (
+          <Box
+            overflow="scroll"
+            maxH={heightBreakpoints}
+          >
+            {data.map(({ id, ...device }) => (
+              <DeviceItem
+                key={id}
+                {...device}
+                onEdit={onEdit({ id, ...device })}
+                onDelete={onDelete({ id, ...device })}
+              />
+            ))}
+          </Box>
+        ) : (
+          <Center height={heightBreakpoints}>
+            No data to display.
+          </Center>
+        )
       )}
       <DeviceModal
         isOpen={isOpen}
